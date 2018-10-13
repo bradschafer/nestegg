@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <div *ngIf="screen !== 2" class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
+          <div class="card card-register">
+            <h3 class="title">Welcome</h3>
+            <json-schema-form *ngIf="screen === 0" loadExternalAssets="true" [form]="jsonForm" framework="material-design"
+              (onChanges)="onFormChanges($event)" (onSubmit)="onNext($event)">
+            </json-schema-form>
+            <json-schema-form *ngIf="screen === 1" loadExternalAssets="true" [form]="jsonForm2" framework="material-design"
+              (onSubmit)="onInfo($event)">
+            </json-schema-form>
+            <!-- <span class="forgot text-err" *ngIf="!passValid && passwords">Passwords must match.</span> -->
+
+            <div *ngIf="screen === 0" class="forgot">
+              <a [routerLink]="['/login']" class="btn btn-link btn-secondary">Already have account?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer register-footer text-center">
+        <h6>&copy;{{test | date: 'yyyy'}}, made with <i class="fa fa-heart heart"></i> by the Nest Egg Team</h6>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="screen === 2" class="main">
+    <div class="section">
+      <div class="container text-justify">
+        <div class="row">
+          <div class="team-section">
+            <h1>Please Review Terms of Service</h1>
+            <app-terms-service></app-terms-service>
+          </div>
+          <div class="footer" style="flex-grow: 1;">
+              <button pButton class="btn btn-block" type="button" label="Register" (click)="onSubmit($event)">Register</button>
+            </div>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+
+</div>

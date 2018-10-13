@@ -1,0 +1,53 @@
+# https://docs.traefik.io/configuration/backends/docker/
+# https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-16-04
+# https://github.com/BretFisher/dogvscat/blob/master/stack-proxy.yml
+
+version: '3.3'
+
+services:
+
+  traefik:
+    image: traefik:1.6-alpine
+    # container_name: traefik
+    networks:
+      - web
+    volumes:
+      - ./acme.json:/etc/traefik/acme/acme.json
+      # - ./traefik.toml:/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "80:80"
+      - "443:443"
+    #  - "8080:8080" # traefik dashboard
+    labels:
+      - traefik.frontend.rule=Host:proxy.localhost
+      - traefik.port=8080
+    command:
+      # Use your favourite settings here, but add:
+      - --docker
+        #- --docker.swarmMode
+      - --docker.domain=traefik
+      - --docker.watch
+      - --api
+      - --defaultentrypoints=http,https
+      - --acme
+      - --acme.email=a.brad.schafer@gmail.com
+        # TODO: envvar for email and default domain
+      - --acme.httpchallenge
+      - --acme.httpchallenge.entrypoint=http
+      - --acme.onhostrule=true
+      - --acme.entrypoint=https
+      - --entryPoints=Name:https Address::443 TLS
+      - --entryPoints=Name:http Address::80
+      - --acme.storage=/etc/traefik/acme/acme.json
+      - --acme.acmelogging
+      - --acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      # - --acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+    restart: always
+    logging:
+      options:
+        max-size: "500k"
+
+networks:
+  web:
+    external: true

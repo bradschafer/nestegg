@@ -1,0 +1,151 @@
+<div class="p-grid" style="margin-top:100px;height: 80vh;">
+  <div class="p-col-1">
+    <app-menu></app-menu>
+  </div>
+  <div class="p-col-10">
+    <div class="content-section implementation ui-fluid">
+      <p-table 
+        #dt 
+        [columns]="columns" 
+        [value]="cars" 
+        dataKey="vin" 
+        [lazy]="true" 
+        (onLazyLoad)="loadCarsLazy($event)"  
+        [loading]="loading"  
+        [paginator]="true" 
+        [rows]="3" 
+        [totalRecords]="totalRecords" 
+        selectionMode="single" 
+        [(selection)]="selectedCar" 
+        (onRowSelect)="onRowSelect($event)"
+        >
+
+        <ng-template pTemplate="caption">
+          <div style="text-align: right">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              style="width:auto">
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3em"></th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+
+          <tr>
+                  <th style="width: 3em"></th>
+                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                      <input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                      <div *ngSwitchCase="'year'">
+                          Value < {{yearFilter}}
+                          <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                          <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
+                      </div>
+                      <p-dropdown *ngSwitchCase="'brand'" [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                      <p-multiSelect *ngSwitchCase="'color'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
+                  </th>
+              </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+          <tr>
+            <td>
+              <a [pRowToggler]="rowData">
+                <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+              </a>
+            </td>
+            <td [pSelectableRow]="rowData" *ngFor="let col of columns">
+              {{rowData[col.field]}}
+            </td>
+          </tr>
+        </ng-template>
+
+
+        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+          <tr>
+            <td [attr.colspan]="columns.length + 1">
+              <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                <div class="ui-g-12 ui-md-3" style="text-align:center">
+                  <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
+                </div>
+                <div class="ui-g-12 ui-md-9">
+                  <div class="ui-g">
+                    <div class="ui-g-12">
+                      <b>Vin:</b> {{rowData.vin}}
+                    </div>
+                    <div class="ui-g-12">
+                      <b>Year:</b> {{rowData.year}}
+                    </div>
+                    <div class="ui-g-12">
+                      <b>Brand:</b> {{rowData.brand}}
+                    </div>
+                    <div class="ui-g-12">
+                      <b>Color:</b> {{rowData.color}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+
+
+      <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
+          <div class="ui-g ui-fluid" *ngIf="car">
+              <div class="ui-g-12">
+                  <div class="ui-g-4">
+                      <label for="vin">Vin</label>
+                  </div>
+                  <div class="ui-g-8">
+                      <input pInputText id="vin" [(ngModel)]="car.vin" />
+                  </div>
+              </div>
+              <div class="ui-g-12">
+                  <div class="ui-g-4">
+                      <label for="year">Year</label>
+                  </div>
+                  <div class="ui-g-8">
+                      <input pInputText id="year" [(ngModel)]="car.year" />
+                  </div>
+              </div>
+              <div class="ui-g-12">
+                  <div class="ui-g-4">
+                      <label for="brand">Brand</label>
+                  </div>
+                  <div class="ui-g-8">
+                      <input pInputText id="brand" [(ngModel)]="car.brand" />
+                  </div>
+              </div>
+              <div class="ui-g-12">
+                  <div class="ui-g-4">
+                      <label for="color">Color</label>
+                  </div>
+                  <div class="ui-g-8">
+                      <input pInputText id="color" [(ngModel)]="car.color" />
+                  </div>
+              </div>
+          </div>
+          <p-footer>
+              <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                  <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+                  <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+              </div>
+          </p-footer>
+      </p-dialog>
+
+
+
+    </div>
+  </div>
+  <div class="p-col">
+
+  </div>
+</div>

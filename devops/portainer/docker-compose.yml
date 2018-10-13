@@ -1,0 +1,55 @@
+# https://medium.com/lucjuggery/about-var-run-docker-sock-3bfd276e12fd
+# https://github.com/BretFisher/dogvscat/blob/master/stack-portainer.yml
+
+version: "3.4"
+
+services:
+  portainerweb:
+    image: portainer/portainer:1.19.2
+    # command: -H "tcp://tasks.agent:9001"
+    deploy:
+      replicas: 1
+      # placement:
+        # constraints: [node.role == manager]
+        # place on managers when not using agent, place on workers if using agent
+      labels:
+        - traefik.port=9000
+        - traefik.docker.network=web
+        - traefik.frontend.rule=Host:portainer.localhost
+    networks:
+      - web
+      - portainer
+    # volumes:
+    #    - web:/data
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  #required for compose-up locally
+    labels: # labels here for compose-up and in deploy for swarm
+      - traefik.port=9000
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:portainer.localhost  
+
+  # https://portainer.readthedocs.io/en/latest/agent.html    
+  portaineragent:
+    image: portainer/agent:1.1.2
+    networks:
+      - portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+    environment:
+      AGENT_CLUSTER_ADDR: tasks.agent
+    logging:
+      options:
+        max-size: "500k"
+
+networks:
+  web:
+    external: true
+  portainer: {}
+
+# volumes:
+#   web:
+#     driver: rexray/dobs
+#     driver_opts:
+#       size: 1

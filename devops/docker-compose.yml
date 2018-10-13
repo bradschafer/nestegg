@@ -1,0 +1,262 @@
+version: '3.4'
+
+x-logging:
+  &my-logging
+  options:
+    max-size: '1m'
+    max-file: '5'
+
+networks:
+  web:
+    external: true
+  mongo:
+    external: true
+  portainer:
+    driver: bridge  
+  elk:
+    driver: bridge  
+  rabbitmq:
+    driver: bridge  
+ 
+services:
+
+  traefik:
+    image: traefik:1.6-alpine
+    # container_name: traefik
+    networks:
+      - web
+    depends_on:
+      - portaineragent
+      - elasticsearch
+      - kibana
+      - mqnode1
+      - portainerweb
+    volumes:
+      - ./traefik/acme.json:/etc/traefik/acme/acme.json
+      # - ./traefik.toml:/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "80:80"
+      - "443:443"
+    #  - "8080:8080" # traefik dashboard
+    labels:
+      - traefik.frontend.rule=Host:proxy.localhost
+      - traefik.port=8080
+    command:
+      # Use your favourite settings here, but add:
+      - --docker
+        #- --docker.swarmMode
+      - --docker.domain=traefik
+      - --docker.watch
+      #- --docker.network=web
+      - --api
+      - --defaultentrypoints=http,https
+      - --acme
+      - --acme.email=a.brad.schafer@gmail.com
+        # TODO: envvar for email and default domain
+      - --acme.httpchallenge
+      - --acme.httpchallenge.entrypoint=http
+      - --acme.onhostrule=true
+      - --acme.entrypoint=https
+      - --entryPoints=Name:https Address::443 TLS
+      - --entryPoints=Name:http Address::80
+      - --acme.storage=/etc/traefik/acme/acme.json
+      - --acme.acmelogging
+      - --acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      # - --acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://proxy.localhost"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+    # restart: always
+    logging: *my-logging
+
+  portainerweb:
+    image: portainer/portainer:1.19.2
+    # command: -H "tcp://tasks.agent:9001"
+    deploy:
+      replicas: 1
+      # placement:
+        # constraints: [node.role == manager]
+        # place on managers when not using agent, place on workers if using agent
+      labels:
+        - traefik.port=9000
+        - traefik.docker.network=web
+        - traefik.frontend.rule=Host:portainer.localhost
+    networks:
+      - web
+      - portainer
+    volumes:
+      - ./../data/devops/portainer/:/data
+      - /var/run/docker.sock:/var/run/docker.sock  #required for compose-up locally
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:9000"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s    
+    labels: # labels here for compose-up
+      - traefik.port=9000
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:portainer.localhost
+    ports:
+      - 9000:9000    
+    logging:
+      options:
+        max-size: "500k"
+
+  portaineragent:
+    image: portainer/agent:1.1.2
+    networks:
+      - portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+    environment:
+      AGENT_CLUSTER_ADDR: tasks.agent
+    logging: *my-logging
+
+  elasticsearch:
+    build:
+      context: docker-elk/elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./docker-elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./../data/devops/elasticsearch/data:/usr/share/elasticsearch/data
+    labels: 
+      - traefik.port=9200
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:elasticsearch.localhost  
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+      - web
+    logging: *my-logging
+  
+  logstash:
+    build:
+      context: docker-elk/logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./docker-elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./docker-elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    labels: 
+      - traefik.port=9600
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:logstash.localhost  
+    ports:
+      - "5000:5000"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+      - web
+    depends_on:
+      - elasticsearch
+    logging: *my-logging
+
+  kibana:
+    build:
+      context: docker-elk/kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./docker-elk/kibana/config/:/usr/share/kibana/config:ro
+    labels: 
+      - traefik.port=5601
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:kibana.localhost  
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+      - web
+    depends_on:
+      - elasticsearch
+    logging: *my-logging
+
+  mqnode1:
+      image: rabbitmq:3-management
+      hostname: mqnode1
+      environment:
+        RABBITMQ_ERLANG_COOKIE: "secret string"
+        RABBITMQ_NODENAME: mqnode1
+      networks:
+        - rabbitmq
+        - web    
+      volumes:
+        - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+        - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
+      labels:
+        - traefik.frontend.rule=Host:rabbitmq.localhost
+        - traefik.docker.network=web
+        - traefik.port=15672
+      logging: *my-logging  
+      # ports:
+      #   - "4369:4369"
+      #   - "5671:5671"
+      #   - "5672:5672"
+      #   - "15671:15671"
+      #   - "15672:15672"
+      #   - "25672:25672"
+
+  mqnode2:
+    image: rabbitmq:3-management
+    hostname: mqnode2
+    depends_on:
+      - mqnode1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: mqnode2
+    networks:
+      - rabbitmq    
+    volumes:
+      - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+      - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
+    logging: *my-logging
+
+  mqnode3:
+    image: rabbitmq:3-management
+    hostname: mqnode3
+    depends_on:
+      - mqnode1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: mqnode3
+    networks:
+      - rabbitmq    
+    volumes:
+      - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+      - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
+    logging: *my-logging
+
+  mongodb:
+    image: mongo:4.0
+    command: mongod --smallfiles --logpath=/dev/null # --quiet 
+    # container_name: "mongodbnestegg"
+    # restart: always
+    environment:
+    - MONGO_DATA_DIR=/data/db
+    - MONGO_LOG_DIR=/dev/null
+    volumes:
+    - ./../data/devops/mongodb/db:/data/db
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/local --quiet
+      interval: 30s
+      timeout: 5s
+      retries: 12
+    networks:
+      - mongo
+    ports:
+      - 27017:27017
+    logging: *my-logging 

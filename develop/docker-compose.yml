@@ -1,0 +1,124 @@
+version: "3.4"
+
+volumes:
+  notused: #node_modules fix
+
+secrets:
+  db_password_v1:
+    file: ./../secrets/db_password.txt      
+
+networks:
+  mongo: 
+    external: true 
+  web:
+    external: true   
+
+services:
+
+  api:
+    build: #location and filename for this api build
+      context: ./api
+      dockerfile: dockerfile 
+      args:
+          - NODE_ENV=development
+    image: api:1.0 #name is built from this with tag   
+    command: ../node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/www
+    volumes:
+      - ./api:/opt/app:delegated
+      # bind-mounting these two files in will let you add packages during development without rebuilding
+      # for example, to add bower to your app while developing, just install it inside the container
+      # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
+      # be saved on host for next build
+      # docker-compose exec api npm install --save bower
+      - ./api/package.json:/opt/package.json
+      # - ./api/package-lock.json:/opt/package-lock.json
+      # this is a workaround to prevent host node_modules from accidently getting mounted in container
+      # in case you want to use node/npm both outside container for test/lint etc. and also inside container
+      # this will overwrite the default node_modules dir in container so it won't conflict with our
+      # /opt/node_modules location. Thanks to PR from @brnluiz
+      - notused:/opt/app/node_modules
+    ports:
+     - 3000:3000
+    labels: 
+    # labels here for compose-up and in deploy for swarm
+      - traefik.enable=true
+      - traefik.port=3000
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:api.localhost    
+    environment:
+      NODE_DB_PASSWORD_FILE: /run/secrets/db_password_v1
+      MONGODB_SERVICE_SERVICE_HOST: "mongodb1"  
+    restart: on-failure
+    secrets:
+      - db_password_v1  
+    # depends_on:
+    #  - mongodb
+    networks:
+     - mongo
+     - web
+    logging:
+      options:
+        max-size: "500k" 
+
+  ngdev:
+    image: webclient:1.0
+    container_name: "nesteggngdev"
+    build:
+      context: ./client
+      dockerfile: node.Dockerfile
+      args:
+        - NODE_ENV={NODE_ENV:development}
+    labels: 
+      - traefik.enable=true
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:clientdev.localhost
+      - traefik.port=4200
+    networks:
+      - web
+      - default
+    ports:
+       - "4000:4200"
+       - "9876:9876"
+       - "9229:9229"
+       - "49153:49153"
+    volumes:
+      - ./client:/opt/app:delegated
+      # bind-mounting these two files in will let you add packages during development without rebuilding
+      # for example, to add bower to your app while developing, just install it inside the container
+      # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
+      # be saved on host for next build
+     
+      # docker-compose exec node npm install --save bower
+      - ./client/package.json:/opt/package.json
+      - ./client/proxy.conf.json:/opt/proxy.conf.json
+      #- ./client/package-lock.json:/opt/package-lock.json
+     
+      # this is a workaround to prevent host node_modules from accidently getting mounted in container
+      # in case you want to use node/npm both outside container for test/lint etc. and also inside container
+      # this will overwrite the default node_modules dir in container so it won't conflict with our
+      # /opt/node_modules location. Thanks to PR from @brnluiz
+      - notused:/opt/app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  # ngprod:
+  #     image: webclientprod:1.0
+  #     build:
+  #       context: ./client
+  #       dockerfile: nginx.Dockerfile
+  #     ports:
+  #       - '81:80'
+  #     labels: 
+  #       - traefik.enable=true
+  #       - traefik.port=80
+  #       - traefik.docker.network=web
+  #       - traefik.frontend.rule=Host:client.localhost      
+  #     networks:
+  #     - web
+  #     restart: on-failure
+  #     logging:
+  #       options:
+  #         max-size: "500k" 
+  
+
+   

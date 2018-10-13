@@ -1,0 +1,23 @@
+version: "3.1"
+services:
+    visualizer:
+      image: dockersamples/visualizer:stable
+      labels: # labels here for compose-up and in deploy for swarm
+      - traefik.port=8080
+      - traefik.docker.network=proxy
+      - traefik.frontend.rule=Host:visualizer.localhost    
+      # ports:
+      #  - "5000:8080"
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+      deploy:
+        placement:
+          constraints: [node.role == manager]
+      logging:
+        options:
+          max-size: "500k"    
+      networks: 
+        - proxy 
+networks:
+  proxy:
+    external: true     

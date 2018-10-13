@@ -1,0 +1,66 @@
+.navbar.fixed-top {
+  .ui-menubar {
+    border: 1px solid transparent;
+    background-color: transparent;
+
+    .ui-submenu-list{
+        border: none;
+        box-shadow: none;
+    }
+
+    .ui-menuitem.ui-menuitem-active{
+        .ui-menuitem,
+        .ui-menuitem-text,   
+        .ui-menuitem-icon,
+        .ui-menuitem-link {
+          background-color: transparent;
+          color: #aaaaaa;
+        }
+    }
+
+    .ui-menuitem:hover,
+    .ui-menuitem-text:hover,   
+    .ui-menuitem-icon:hover,
+    .ui-menuitem-link:hover{
+        background-color: transparent;
+        color: #aaaaaa;
+    }
+
+  }
+}
+
+body .navbar-transparent {
+  .ui-menubar {
+    .ui-menuitem,
+    .ui-menuitem-text,   
+    .ui-menuitem-icon,
+    .ui-menuitem-link {
+      color: #eeeeee;
+    }
+
+    .ui-submenu-list{
+        background-color: #80808021;
+        border: none;
+        box-shadow: none;
+    }
+
+    .ui-menuitem.ui-menuitem-active{
+        .ui-menuitem,
+        .ui-menuitem-text,   
+        .ui-menuitem-icon,
+        .ui-menuitem-link,
+          {
+          background-color: transparent;
+          color: #dddddd;
+        }
+    }
+
+    .ui-menuitem:hover,
+    .ui-menuitem-text:hover,   
+    .ui-menuitem-icon:hover,
+    .ui-menuitem-link:hover{
+        background-color: transparent;
+        color: #dddddd;
+    }
+  }
+}

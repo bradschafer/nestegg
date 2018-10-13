@@ -1,0 +1,36 @@
+# Create image based on the official Node 6 image from dockerhub
+FROM node:10-alpine as development
+
+RUN apk update && apk add bash
+
+# set our node environment, either development or production
+# defaults to production, compose overrides this to development on build and run
+ARG NODE_ENV=production
+ENV NODE_ENV $NODE_ENV
+
+# default to port 3000 for API, and 5858 or 9229 for debug
+ARG PORT=3000
+ENV PORT $PORT
+EXPOSE $PORT 5858 9229
+
+# you'll likely want the latest npm, reguardless of node version, for speed and fixes
+# RUN npm i npm@latest -g
+
+# this allows us to watch app and tests and more at the same time
+RUN npm i -g concurrently
+
+# install dependencies first, in a different location for easier app bind mounting for local development
+WORKDIR /opt
+COPY package.json /opt
+RUN npm install && npm cache clean --force
+ENV PATH /opt/node_modules/.bin:$PATH
+
+# copy in our source code last, as it changes the most
+WORKDIR /opt/app
+COPY . /opt/app
+
+# check every 30s to ensure this service returns HTTP 200
+# HEALTHCHECK --interval=30s CMD node healthcheck.js
+
+# We install bash on alpine and run an init shell script so that we get all the ENV vars.
+CMD ["bash", "init.sh"]

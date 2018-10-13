@@ -1,0 +1,58 @@
+# https://blogmilind.wordpress.com/2016/03/04/rabbitmq-clustering-using-docker/
+
+version: "3.1"
+services:
+  mqnode1:
+    image: rabbitmq:3-management
+    hostname: mqnode1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: mqnode1
+    networks:
+      - rabbitmq    
+    volumes:
+      - "./rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+      - "./definitions.json:/etc/rabbitmq/definitions.json"
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "15671:15671"
+      - "15672:15672"
+      - "25672:25672"
+
+  mqnode2:
+    image: rabbitmq:3-management
+    hostname: mqnode2
+    depends_on:
+      - mqnode1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: mqnode2
+    networks:
+      - rabbitmq    
+    volumes:
+      - "./rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+      - "./definitions.json:/etc/rabbitmq/definitions.json"
+    
+  mqnode3:
+    image: rabbitmq:3-management
+    hostname: mqnode3
+    depends_on:
+      - mqnode1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: mqnode3
+    networks:
+      - rabbitmq    
+    volumes:
+      - "./rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+      - "./definitions.json:/etc/rabbitmq/definitions.json"
+secrets:
+   msg_bus_password:
+     file: ./../secrets/msg_bus_password.txt
+networks:
+  rabbitmq:
+#  default:
+#    external:
+#      name: rabbitmq-cluster
