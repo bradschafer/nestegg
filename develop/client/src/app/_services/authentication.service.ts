@@ -31,7 +31,7 @@ export class AuthenticationService {
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem(
               'currentUser',
-              JSON.stringify({ username, token: res.data.accessToken })
+              JSON.stringify({ username, token: res.data.accessToken, displayName: res.data.displayName })
             );
             res.data.username = username;
             console.log(res.data);
@@ -48,11 +48,9 @@ export class AuthenticationService {
   }
 
   register(registration: User) {
-    const authURL = this.apiUrl + '/api/auth/register';
+    const authURL = this.apiUrl + '/api/users';
     return this.http
-      .post<any>(authURL, {
-        registerDto: registration
-      })
+      .post<any>(authURL, registration)
       .pipe(
         map((res: any) => {
           console.log(res);
@@ -61,7 +59,7 @@ export class AuthenticationService {
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem(
               'currentUser',
-              JSON.stringify({ username: registration.username, token: res.data.accessToken })
+              JSON.stringify({ username: registration.username, token: res.data.accessToken, displayName: registration.displayName })
             );
             this.user$.next(res.data);
           }

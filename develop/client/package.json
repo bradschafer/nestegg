@@ -32,6 +32,7 @@
     "angular2-cookie-law": "^6.0.4",
     "angular6-json-schema-form": "^1.0.4",
     "core-js": "^2.5.4",
+    "ng6-socket-io": "^1.0.3",
     "primeicons": "^1.0.0-beta.10",
     "primeng": "^6.1.4",
     "rxjs": "^6.0.0",

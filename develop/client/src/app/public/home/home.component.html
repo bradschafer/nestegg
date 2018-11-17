@@ -35,6 +35,7 @@
     <h6 class=" category-absolute ml-auto mr-auto">
       A Docker centric curated platform for modern micro-service based organizations.
     </h6>
+   
   </div>
 
   <div class="main">
@@ -48,6 +49,7 @@
               Nest Egg has curated some of the market leading Open Source Software initiatives and integrated them in a
               way that allows you startup an entire organization platform quickly.
             </p><br />
+  
             <p class="description">
                     Designed with both Developers and DevOps in mind, a development environment can be up and running with two Docker-Compose commands.
                     
@@ -249,6 +251,9 @@
             <h3>Thank you for supporting us!</h3>
           </div>
 
+          <ul *ngFor="let msg of messages;let _index=index">
+            <li>{{msg}}</li>
+        </ul>
         <!-- 
             <div class="text-center col-md-12 col-lg-8">
             <a href="#pablo" class="btn btn-twitter-bg twitter-sharrre btn-round" rel="tooltip" title="Tweet!">

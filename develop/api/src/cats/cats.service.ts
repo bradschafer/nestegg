@@ -19,4 +19,12 @@ export class CatsService {
   public async findOne(id: string): Promise<Cat> {
     return await this.catModel.findById(id);
   }
+
+  public async updateOne(id: string): Promise<Cat> {
+    return await this.catModel.findById(id);
+  }
+
+  public async deleteOne(id: string): Promise<Cat> {
+    return await this.catModel.findById(id);
+  }
 }

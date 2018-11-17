@@ -1,6 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '../common/services/config.service';
+import { Model, Document } from 'mongoose';
+import { Injectable, Inject  } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
+
+import { ConfigService } from '../common/services/config.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoggerService } from '../common/services/logger.service';
 import { AccessTokenWithMetadata } from './interfaces/jwt-accessTokenData.interface';
@@ -8,9 +10,23 @@ import { AuthenticateDto } from './dto/authenticate-dto';
 import { User } from './interfaces/user.interface';
 import { users } from './users.const';
 
+export interface User extends Document {
+  readonly username: string;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly roles?: string[];
+  readonly teams?: string[];
+  readonly password: string;
+}
+
 @Injectable()
 export class AuthService {
-  constructor(private readonly configService: ConfigService, private readonly loggerService: LoggerService) {}
+  constructor(
+    @Inject('UserModelToken') 
+    private readonly userModel: Model,
+    private readonly configService: ConfigService, 
+    private readonly loggerService: LoggerService
+  ) {}
 
   public async createToken(payload: JwtPayload): Promise<AccessTokenWithMetadata> {
     const expiresIn = 3600;
@@ -40,10 +56,20 @@ export class AuthService {
 
   public async authenticateUser(authenticateDto: AuthenticateDto): Promise<User> {
     if (!authenticateDto) return null;
-    return users.find(user => user.username === authenticateDto.username && user.password === authenticateDto.password);
+    
+    // remove this once the demo users should be removed
+    const demo = users.find(user => user.username === authenticateDto.username && user.password === authenticateDto.password);
+    if(demo){
+      return demo;
+    }
+    const user = await this.userModel.findOne({username: authenticateDto.username, password: authenticateDto.password}).lean();
+    return user;
+
   }
 
-  public async findAll(): Promise<User[]> {
+    // remove this once the demo users should be removed
+    public async findAll(): Promise<User[]> {
     return users;
   }
+
 }

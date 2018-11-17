@@ -1,4 +1,4 @@
-# Nestjs-BFF API
+# Nest Egg API
 
 <p align="center">
   <a href="../../README.md">Overview</a>

@@ -5,4 +5,8 @@
     passwordConfirm?: string;
     firstName?: string;
     lastName?: string;
+    fullName?: string;
+    displayName?: string;
+    acceptedTerms?: boolean;
+    acceptedTermsAt?: string;
 }

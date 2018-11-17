@@ -24,7 +24,9 @@ services:
     image: api:1.0 #name is built from this with tag   
     command: ../node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/www
     volumes:
-      - ./api:/opt/app:delegated
+      # - ./api:/opt/app:delegated
+      - ./api:/opt/app
+      
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker-compose down" and will

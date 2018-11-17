@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit, OnChanges {
     @Input() user;
     items;
 
-    
+
     constructor(
         public location: Location,
         private element: ElementRef,
@@ -27,7 +27,15 @@ export class NavbarComponent implements OnInit, OnChanges {
         this.sidebarVisible = false;
     }
 
-    isLoggedIn(): boolean  {
+    get displayName() {
+        if (localStorage.getItem('currentUser') && localStorage.getItem('currentUser').length) {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            return user.displayName || user.username;
+        }
+        return 'Please Login';
+    }
+
+    isLoggedIn(): boolean {
         return !!localStorage.getItem('currentUser') && !!localStorage.getItem('currentUser').length;
     }
 
@@ -63,7 +71,7 @@ export class NavbarComponent implements OnInit, OnChanges {
                 routerLink: ['/notifications']
             },
             {
-                label: 'John Doe',
+                label: this.displayName,
                 icon: 'fas fa-user',
                 visible: this.isLoggedIn(),
                 routerLink: ['/profile'],

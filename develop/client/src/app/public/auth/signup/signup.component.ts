@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthenticationService } from '../../../_services';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../../_models';
+import { first } from 'rxjs/operators';
 
 @Component({
     selector: 'app-signup',
@@ -14,6 +16,9 @@ export class SignupComponent implements OnInit {
     passwords = false;
     screen = 0;
     registration: User;
+    returnUrl: string;
+    error = '';
+
 
     jsonForm = {
         schema: {
@@ -31,7 +36,7 @@ export class SignupComponent implements OnInit {
                     required: true,
                     minLength: 4
                 },
-                pass1: {
+                password: {
                     title: 'Password',
                     type: 'string',
                     required: true,
@@ -43,12 +48,12 @@ export class SignupComponent implements OnInit {
             htmlStyle: 'btn-danger'
         },
         uiSchema: {
-            pass1: { ui: '', widget: 'password' }
+            password: { ui: '', widget: 'password' }
         },
         form: [
             'username',
             'email',
-            'pass1',
+            'password',
             {
                 type: 'actions',
                 items: [
@@ -62,12 +67,17 @@ export class SignupComponent implements OnInit {
         schema: {
             type: 'object',
             properties: {
-                fullname: {
-                    title: 'Full Name',
+                firstName: {
+                    title: 'First Name',
                     type: 'string',
                     minLength: 2
                 },
-                displayname: {
+                lastName: {
+                    title: 'Last Name',
+                    type: 'string',
+                    minLength: 2
+                },
+                displayName: {
                     title: 'Display Name (optional)',
                     type: 'string',
                     minLength: 2
@@ -80,8 +90,9 @@ export class SignupComponent implements OnInit {
         uiSchema: {
         },
         form: [
-            'fullname',
-            'displayname',
+            'firstName',
+            'lastName',
+            'displayName',
             {
                 type: 'actions',
                 items: [
@@ -90,6 +101,7 @@ export class SignupComponent implements OnInit {
             }
         ]
     };
+
 
     onFormChanges(event) {
         this.passwords = event.pass1 && event.pass2;
@@ -111,11 +123,31 @@ export class SignupComponent implements OnInit {
     }
 
     onAccept(event) {
-        this.registration = Object.assign(event, this.registration);
-        this.authenticationService.register(event);
+
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+
+        this.registration = Object.assign({
+            fullName: this.registration.firstName + ' ' + this.registration.lastName,
+            acceptedTerms: true,
+            acceptedTermsAt: new Date()
+        }, this.registration);
+        this.authenticationService.register(this.registration)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.error = error;
+
+                });
     }
 
     constructor(
+        private route: ActivatedRoute,
+        private router: Router,
         private authenticationService: AuthenticationService
     ) { }
 
