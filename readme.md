@@ -2,21 +2,24 @@
 
 # Nest Egg Intro
 <img src="docs/images/GettingStarted-MarketLeaders.png">
-Nest Egg is a a Docker centric curated platform for modern micro-service based organizations. It is a fairly large set of technologies. As such we've tried to make getting started with a working example as simple as possible. 
+Nest Egg is a Docker centric curated platform for modern micro-service based organizations. It is a fairly large set of technologies. As such we've tried to make getting started with a working example as simple as possible. 
 
 
 # Getting Started
 ## Prerequisites
     - Install Docker ( ver 18.10 or higher)
-    - Intall Git
-    
-## On a Mac or Linux machine
+    - Install Git
+
+## On a Mac/Linux 
 ```console
-git clone https://github.com/bradschafer/nestegg ./nestegg
+mkdir nestegg
 cd nestegg
-setup.sh
+git clone https://github.com/bradschafer/nestegg .
+bash setup.sh
 ```
-The setup bash script will add some folders and setup the Docker networks that NestEgg needs in order for the containers to talk to each other.
+The setup bash script will add some folders and setup the Docker networks that NestEgg needs in order for the containers to talk to each other. The folders will store and 'share' data from your computer to the running Docker services, creating a development environment 'persistance' layer. You can edit files right from your favorite IDE and the web application will refresh on file change automatically. For transition to production environment see the 'Moving to Production' section of the documentation.
+
+### Launch devops infratructure
 
 ```console
 cd devops
@@ -42,7 +45,7 @@ You should then see something like this:
 
 If you start the development server prior to the MongoDB starting up, you will see an error. It is no big deal, as starting and stopping containers will be a breeze with the 'Portainer' management console which we will cover a bit below.
 
-If you get an error, for now simply press * ctl-c * wait for the containers to shut down then run the docker-compose command again.
+If you get an error, for now simply press **ctl-c** wait for the containers to shut down then run the docker-compose command again.
 
 At this point we can begin to use some of the running services to do administration. Here are the main URL's you will be using:
 
@@ -101,3 +104,5 @@ With all the services started you should now be able to open a browser and goto 
 
 
 <img src="docs/images/GettingStarted-Client.png">
+
+# Next Steps
