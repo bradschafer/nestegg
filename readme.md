@@ -1,8 +1,5 @@
 # Welcome to Nest Egg
 
-# Welcome to Nest Egg
-
-
 <img src="docs/images/GettingStarted-Client.png">
 
 # Nest Egg Intro
