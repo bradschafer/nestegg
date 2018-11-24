@@ -24,6 +24,6 @@
 ## Legal Stuff
 
 * [Attributions](legal-stuff/attributions.md)
+* [Licenses](licenses/)
 * [Random Info / Links](legal-stuff/gettingstarted.md)
-* [Untitled](legal-stuff/untitled.md)
 
