@@ -23,7 +23,7 @@ export interface User extends Document {
 export class AuthService {
   constructor(
     @Inject('UserModelToken') 
-    private readonly userModel: Model,
+    private readonly userModel,
     private readonly configService: ConfigService, 
     private readonly loggerService: LoggerService
   ) {}
@@ -64,7 +64,6 @@ export class AuthService {
     }
     const user = await this.userModel.findOne({username: authenticateDto.username, password: authenticateDto.password}).lean();
     return user;
-
   }
 
     // remove this once the demo users should be removed

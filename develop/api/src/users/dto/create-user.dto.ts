@@ -20,7 +20,7 @@ export class CreateUserDto {
 
   @ApiModelProperty()
   @IsString()
-  public readonly password?: string;
+  public  password?: string;
 
   @ApiModelProperty()
   @IsString()

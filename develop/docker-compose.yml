@@ -66,7 +66,7 @@ services:
     image: webclient:1.0
     container_name: "nesteggngdev"
     build:
-      context: ./client
+      context: ./apps/root-webapp
       dockerfile: node.Dockerfile
       args:
         - NODE_ENV={NODE_ENV:development}
@@ -84,15 +84,15 @@ services:
        - "9229:9229"
        - "49153:49153"
     volumes:
-      - ./client:/opt/app:delegated
+      - ./apps/root-webapp:/opt/app:delegated
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
       # be saved on host for next build
      
       # docker-compose exec node npm install --save bower
-      - ./client/package.json:/opt/package.json
-      - ./client/proxy.conf.json:/opt/proxy.conf.json
+      - ./apps/root-webapp/package.json:/opt/package.json
+      - ./apps/root-webapp/proxy.conf.json:/opt/proxy.conf.json
       #- ./client/package-lock.json:/opt/package-lock.json
      
       # this is a workaround to prevent host node_modules from accidently getting mounted in container

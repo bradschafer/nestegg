@@ -19,6 +19,15 @@ import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './interfaces/user.interface';
 import { UsersService } from './users.service';
+import * as crypto from 'crypto';
+
+// for typescript
+declare const Buffer
+declare const process
+
+//NOTE: This needs to be modified to pull a secret from docker
+const ENCRYPTION_KEY = '12345678901234567890123456789012'  // Must be 256 bytes (32 characters)
+const IV_LENGTH = 16; // For AES, this is always 16
 
 @ApiBearerAuth()
 @ApiUseTags('/api/users')
@@ -31,12 +40,41 @@ export class UsersController {
     private loggerService: LoggerService,
   ) { }
 
+  encrypt(text) {
+    let iv = crypto.randomBytes(IV_LENGTH);
+    let cipher = crypto.createCipheriv('aes-256-cbc', new  Buffer.from(ENCRYPTION_KEY), iv);
+    let encrypted = cipher.update(text);
+  
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+  
+    return iv.toString('hex') + ':' + encrypted.toString('hex');
+  }
+  
+  decrypt(text) {
+    let textParts = text.split(':');
+    let iv = new  Buffer.from(textParts.shift(), 'hex');
+    let encryptedText = new  Buffer.from(textParts.join(':'), 'hex');
+    let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer.from(ENCRYPTION_KEY), iv);
+    let decrypted = decipher.update(encryptedText);
+  
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+  
+    return decrypted.toString();
+  }
+
+
   @Post()
   @Roles('staff')
   public async create(
     @Body() createuserDto: CreateUserDto
   ) {
     this.loggerService.debug('user.controller - register', createuserDto);
+
+    const pwd = this.encrypt(createuserDto.password)
+    console.log('password crypt', pwd);
+    // outputs password
+    console.log(this.decrypt(pwd));
+    createuserDto.password = pwd;
     const user = await this.UsersService.create(createuserDto);
     // validate user
     if (user) {
@@ -44,8 +82,8 @@ export class UsersController {
       const { password, ...userDto } = user;
       // issue and return JWT token
       const jwtPayload = { user: userDto };
-    return await this.authService.createToken(jwtPayload);
-    //return jwtPayload;
+      return await this.authService.createToken(jwtPayload);
+      //return jwtPayload;
     } else {
       throw new Error('incorrect username or password');
     }
@@ -75,7 +113,7 @@ export class UsersController {
     @Param('id') id: string,
     @Body() createuserDto: CreateUserDto
   ): Promise<User> {
-    return this.UsersService.updateOne(id, createuserDto );
+    return this.UsersService.updateOne(id, createuserDto);
   }
 
   @Delete(':id')
@@ -85,4 +123,7 @@ export class UsersController {
   ): Promise<User> {
     return this.UsersService.deleteOne(id);
   }
+
+  
+
 }

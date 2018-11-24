@@ -23,4 +23,4 @@ This codebase contains code from the following open source libraries:
 - https://www.creative-tim.com/product/paper-kit-2-angular ( Please support Creative Tim, upgrade to Pro!)
 
 #Licence File
-A copy of the licence files can be found for each of the above projects in the /attributions folder of this project
+A copy of the licence files can be found for most if not all of the above projects in the /licenses folder of this project
