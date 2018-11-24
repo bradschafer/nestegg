@@ -1,4 +1,4 @@
-# ATTRIBUTIONS
+# Attributions
 
 ## Attributions
 
