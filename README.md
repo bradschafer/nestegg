@@ -1,9 +1,3 @@
----
-description: >-
-  Nest Egg is a Docker centric curated set of Open Source Projects for a modern
-  business infrastructure
----
-
 # Welcome to Nest Egg
 
 ## Intro
