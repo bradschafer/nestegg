@@ -1,18 +1,41 @@
 ---
-description: What is Nest Egg and why was it created?
+description: >-
+  "Wouldn't it be great to get the entire organization infrastructure up and
+  running in a well understood manor that can scale to the enterprise while also
+  closing the gap from concept to production?"
 ---
 
 # Why Nest Egg
 
-On boarding developers into larger organizations is hard. Getting developers able to commit their work and getting it systematically to production is even harder. 
+On boarding developers into larger organizations is hard. 
 
-Licensing can be very expensive for startups, even more so for growing businesses and enterprises. However, open source software also has many hidden costs as well as support concerns for directors and  C-level personnel .
+Getting developers to the point their work moves seamlessly into to production is even harder. 
 
-Nest Egg is an attempt to create a base set of technologies that are open source, well supported, easily integrated and very scalable that conform to modern patterns of software organizations.  
+Licensing commercial solutions can be very expensive for startups and even more so for growing businesses or enterprises.
 
-It is our hope that by providing a base set of leading open source technologies that are integrated out-of-the-box developers, designers, architects and managers will be able collaborate around a smaller set of core technologies. These key architectural component accommodate a wide range of business needs, have large talent pools of various levels of expertise and fit nicely into startups or enterprises that are looking to migrate key business processes into modern architectural patterns.
+However, open source software has the less obvious costs of 'choosing the right ones', training, support and maintenance that lead to concerns for directors and  C-level personnel .
 
-Take a look at the key technologies in the Nest Egg stack. You might not know all of them, and you might prefer a different technology for one reason or another, but that is ok. Swap out one of the parts for another, introduce a better solution to the community. Most important, contribute any way you can. If you are knowledgeable an any of the technologies use here in the Nest Egg project join our Slack channel and help out. I am confident when you need help on another piece of the puzzle the community will be there to help you. By focusing on a small core set of capable open source technologies, we can all help each other succeed.
+Nest Egg is an attempt to suggest a base set of technologies that are open source; that are well supported and that are easily integrated into organizations while also being very scalable. 
+
+It is our hope that by showcasing a small set of open source technologies that work well together  developers, architects and mangers can focus intensely on this group of core building blocks.
+
+This handful of key architectures/patterns accommodate a wide range of business needs. They represent   large international talent pools and fit nicely into startups, mid-tier or even enterprises that are looking to migrate critical business processes into industry leading architectural patterns.
+
+Take a quick look at the key technologies in Nest Egg. 
+
+You might recognize a few, you might not know all of them and you might prefer a different technology for one reason or another.
+
+Swap out a part for another, mix and match other leading solutions or introduce a better solution to the community. 
+
+Most important, contribute any way you can. 
+
+If you are knowledgeable in any of the technologies in use by the Nest Egg project join our Slack channel and help out. 
+
+I am confident when you need help on another piece of the puzzle the community will be there to reciprocate.
+
+If we can assist by creating links to articles, highlighting speciality communities or showcasing new examples please let us know about them.  
+
+By focusing on a small core set of capable open source technologies, we can all help each other succeed.
 
 To Your Success,
 
