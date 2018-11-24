@@ -7,9 +7,9 @@ description: >-
 
 # Why Nest Egg
 
-On boarding developers into larger organizations is **hard**. 
+On boarding contributors into larger organizations is **hard**. 
 
-Getting developers to the point their work moves seamlessly into to production is even harder. 
+Getting contributors to the point their work moves seamlessly into to production is even harder. 
 
 Licensing commercial solutions can be very expensive for startups and even more so for growing businesses or enterprises.
 
@@ -17,7 +17,7 @@ Open source software has less obvious costs of 'choosing' and then training, sup
 
 Nest Egg is an attempt to suggest a **base set of technologies** that are open source; that are well supported and that are easily integrated into organizations while also being very scalable. 
 
-It is our hope that by showcasing a small set of open source technologies that work well together  developers, architects and mangers can focus intensely on this group of core building blocks.
+It is our hope that by showcasing a small set of open source technologies that work well together  designers, developers, architects and stakeholders can focus intensely on this group of core building blocks.
 
 This handful of key architectures/patterns accommodate a wide range of business needs. They represent   large international talent pools and fit nicely into startups, mid-tier or even enterprises that are looking to migrate critical business processes into industry leading architectural patterns.
 
