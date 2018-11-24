@@ -1,5 +1,8 @@
 # Welcome to Nest Egg
 
+# Welcome to Nest Egg
+
+
 <img src="docs/images/GettingStarted-Client.png">
 
 # Nest Egg Intro
@@ -108,6 +111,8 @@ With all the services started you should now be able to open a browser and goto 
 <img src="docs/images/GettingStarted-Client.png">
 
 # Next Steps
+
+
 
 
 
