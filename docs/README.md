@@ -7,7 +7,7 @@ description: >-
 
 # Why Nest Egg
 
-On boarding contributors into larger organizations is **hard**. 
+On boarding contributors in most organizations is **hard**. 
 
 Getting contributors to the point their work moves seamlessly into to production is even harder. 
 

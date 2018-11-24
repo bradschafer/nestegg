@@ -12,8 +12,8 @@
 * [Messaging](key-technologies/messaging.md)
 * [Microservices](key-technologies/microservices.md)
 * [Service Discovery](key-technologies/service-discovery.md)
-* [Continuous Delivery](key-technologies/continuous-delivery.md)
 * [Orchestration Management](key-technologies/orchestration-management.md)
+* [Continuous Delivery](key-technologies/continuous-delivery.md)
 * [Monitoring & Alerts](key-technologies/monitoring-and-alerts.md)
 * [Web applications](key-technologies/web-applications.md)
 
