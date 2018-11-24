@@ -7,21 +7,21 @@ description: >-
 
 # Why Nest Egg
 
-On boarding developers into larger organizations is hard. 
+On boarding developers into larger organizations is **hard**. 
 
 Getting developers to the point their work moves seamlessly into to production is even harder. 
 
 Licensing commercial solutions can be very expensive for startups and even more so for growing businesses or enterprises.
 
-However, open source software has the less obvious costs of 'choosing the right ones', training, support and maintenance that lead to concerns for directors and  C-level personnel .
+Open source software has less obvious costs of 'choosing' and then training, support and maintenance that can lead to concerns for directors and  C-level personnel .
 
-Nest Egg is an attempt to suggest a base set of technologies that are open source; that are well supported and that are easily integrated into organizations while also being very scalable. 
+Nest Egg is an attempt to suggest a **base set of technologies** that are open source; that are well supported and that are easily integrated into organizations while also being very scalable. 
 
 It is our hope that by showcasing a small set of open source technologies that work well together  developers, architects and mangers can focus intensely on this group of core building blocks.
 
 This handful of key architectures/patterns accommodate a wide range of business needs. They represent   large international talent pools and fit nicely into startups, mid-tier or even enterprises that are looking to migrate critical business processes into industry leading architectural patterns.
 
-Take a quick look at the key technologies in Nest Egg. 
+Take a quick look at the [**key technologies**](key-technologies/overview.md) in Nest Egg. 
 
 You might recognize a few, you might not know all of them and you might prefer a different technology for one reason or another.
 
@@ -35,7 +35,7 @@ I am confident when you need help on another piece of the puzzle the community w
 
 If we can assist by creating links to articles, highlighting speciality communities or showcasing new examples please let us know about them.  
 
-By focusing on a small core set of capable open source technologies, we can all help each other succeed.
+By focusing on a small core set of capable open source technologies, we can all **help each other succeed**.
 
 To Your Success,
 
