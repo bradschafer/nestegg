@@ -6,3 +6,5 @@ description: What is Nest Egg and why was it created?
 
 OK Better!
 
+![](.gitbook/assets/gettingstarted-client.png)
+
