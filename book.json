@@ -1,4 +1,4 @@
 {
     "root": "docs",
-    "gotbook": ">= 3.0.0"
+    "gitbook": ">= 3.0.0"
 }
