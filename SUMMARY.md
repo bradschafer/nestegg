@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-* [Untitled](getting-started/untitled.md)
+* [Initial Setup](getting-started/untitled.md)
 
 ## Why Nest Egg
 
