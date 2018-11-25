@@ -1,8 +1,5 @@
 ---
-description: >-
-  "Wouldn't it be great to get the entire organization infrastructure up and
-  running in a well understood manor that can scale to the enterprise while also
-  closing the gap from concept to production?"
+description: What is Nest Egg and why was it created?
 ---
 
 # Why Nest Egg

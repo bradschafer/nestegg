@@ -1,15 +1,8 @@
----
-description: >-
-  Below is a set technologies for patterns of robust modern software
-  infrastructure. Short descriptions with links to primary resources and NestEgg
-  examples are provided to learn more.
----
-
 # Overview
 
 ## Containers
 
-The de-facto technology of the modern infrastructure. "Manage cattle not pets" is the motto to represent the ethereal nature of continuously bringing up, deploying and bringing down automated, immutable images of needed services.  
+The de-facto technology of the modern infrastructure. "Manage cattle not pets" is the motto that clearly represents the ethereal nature of continuously bringing up, deploying and bringing down automated, immutable images of needed services.  
   
 **Core Technology :** [**Docker**](https://www.docker.com/)  
 **Learn it:**  [**Udemy - Docker Mastery**](https://www.udemy.com/docker-mastery/)  
@@ -25,9 +18,9 @@ Persistence of data is the lifeblood of the modern business -- as a by product i
 
 ## Search
 
-Querying data is as important as the ability to store and retrieve it. That is why search technologies are a key technology across the business spectrum. More recently visualization of searches have become the baseline need of knowledge workers throughout the organization. One family of search technologies stands out as a clear leader. Affectionately known as the ELK Stack it fulfills its role in the search space.   
+Querying data is as important as the ability to store and retrieve it. That is why search technologies are a key technology across the business spectrum. More recently visualization of searches have become the baseline need of knowledge workers throughout the organization. One family of search technologies stands out as a clear leader. Affectionately known as the ELK Stack it fulfills its role in the search space. No modern organization would be complete without a NoSQL database as well, MongoDb is the clear choice here.   
   
-**Core Technology :** **ELK Stack** [**\( Elastic Search, Logstash & Kibana\)** ](https://www.elastic.co/)  
+**Core Technology :** [**MongoDb**](http://mongodb.com) \| **ELK Stack** [**\( Elastic Search, Logstash & Kibana\)** ](https://www.elastic.co/)  
 **Learn it:**    
 **Use It:**  [**Getting Started**](../gettingstarted.md) 
 
@@ -58,6 +51,12 @@ The nature of containerized microservices in an organization has organically led
 ## Continuous Delivery
 
 ## Orchestration Management
+
+Closely tied to SD \( Service Discovery \) is OM \( Orchestration Management \). At it core OM sets the rules for how services are deployed, scaled, load-balanced and secured. Two technologies have defined and the standard for OM: Kubernetes and Docker.  NestEgg believes at times less is more. As such Docker Swarm is the default OM technology used in the NestEgg solution. Docker Swarm integrates well with some of the other technologies mentioned below making it the easy choice for most organizations OM needs.
+
+**Core Technology :**  [**Docker Swarm**](http://www.docker.com)  
+**Learn it:**  [**Tutorials**](https://www.udemy.com/docker-swarm-mastery/)  
+**Use It:**  [**Getting Started**](../gettingstarted.md) 
 
 ## Monitoring & Alerts
 
