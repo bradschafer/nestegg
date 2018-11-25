@@ -5,13 +5,11 @@ description: Get an entire infrastructure running up in minutes
 # Getting Started
 
 <img src=".gitbook/assets/gettingstarted-client.png">
-
-# Nest Egg Intro
-<img src=".gitbook/assets/GettingStarted-MarketLeaders.png">
+<br>
+<p>
 Nest Egg is a Docker centric curated platform for modern micro-service based organizations. It is a fairly large set of technologies. As such we've tried to make getting started with a working example as simple as possible. 
+</p>
 
-
-# Getting Started
 ## Prerequisites
     - Install Docker ( ver 18.10 or higher)
     - Install Git
@@ -56,6 +54,9 @@ If you get an error, for now simply press **ctl-c** wait for the containers to s
 At this point we can begin to use some of the running services to do administration. Here are the main URL's you will be using:
 
 ## DevOps Services
+
+<img src=".gitbook/assets/GettingStarted-MarketLeaders.png">
+
 
 ### Portainer
 http://portainer.localhost/
