@@ -4,10 +4,10 @@ description: Get an entire infrastructure running up in minutes
 
 # Getting Started
 
-<img src="docs/images/GettingStarted-Client.png">
+<img src=".gitbook/assets/gettingstarted-client.png">
 
 # Nest Egg Intro
-<img src="docs/images/GettingStarted-MarketLeaders.png">
+<img src=".gitbook/assets/GettingStarted-MarketLeaders.png">
 Nest Egg is a Docker centric curated platform for modern micro-service based organizations. It is a fairly large set of technologies. As such we've tried to make getting started with a working example as simple as possible. 
 
 
@@ -35,7 +35,7 @@ This will launch all main infrastructure containers and prep the host machine fo
 
 The -d parameter will run these containers detached form the console in the background. You should see something like this:
 
-<img src="docs/images/Compose-DevOps.png">
+<img src=".gitbook/assets/Compose-DevOps.png">
 
 Open a second tab or terminal window so you can see the console logs for the development server.
 
@@ -47,7 +47,7 @@ docker-compose up
 
 You should then see something like this:
 
-<img src="docs/images/Compose-Develop.png">
+<img src=".gitbook/assets/Compose-Develop.png">
 
 If you start the development server prior to the MongoDB starting up, you will see an error. It is no big deal, as starting and stopping containers will be a breeze with the 'Portainer' management console which we will cover a bit below.
 
@@ -88,13 +88,13 @@ So create an administration account in portainer and recycle it now.
 
 <p><p>
 <p><p>
-<img src="docs/images/GettingStarted-Portainer-1.png">
+<img src=".gitbook/assets/GettingStarted-Portainer-1.png">
 <p><p>
 <p><p>
-<img src="docs/images/GettingStarted-Portainer-2.png">
+<img src=".gitbook/assets/GettingStarted-Portainer-2.png">
 <p><p>
 <p><p>
-<img src="docs/images/GettingStarted-Portainer-3.png">
+<img src=".gitbook/assets/GettingStarted-Portainer-3.png">
 
 Once Traefik is restarted, all the services should get found and get simple localhost domain names.
 
@@ -103,13 +103,13 @@ Open a browser and navigate to http://proxy.localhost/dashboard/
 You should see something like this:
 <p><p>
 <p><p>
-<img src="docs/images/GettingStarted-Traefik.png">
+<img src=".gitbook/assets/GettingStarted-Traefik.png">
 
 
 With all the services started you should now be able to open a browser and goto the front end web application.
 
 
-<img src="docs/images/GettingStarted-Client.png">
+<img src=".gitbook/assets/GettingStarted-Client.png">
 
 
 
