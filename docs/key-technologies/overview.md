@@ -41,7 +41,19 @@ Nearly every higher living organism has a nervous system. That system sends need
 
 ## Microservices
 
+Small simple services that are easily managed, contain their own persistence and scale up and down easily. The counterpart to a monolithic solution. The definition of microservices vary widely, but the generally accepted guidelines are about the same. At the core of NestEgg is NestJS, a framework for building microservices that combines elements of OOP \(Object Oriented Programming\), FP \(Functional Programming\), and FRP \(Functional Reactive Programming\) using Typescript \(preserving compatibility with pure JavaScript while introducing stronger types\).
+
+**Core Technology :** [**NestJS**](https://docs.nestjs.com/)  
+**Learn it:**  [**Tutorials**](https://docs.nestjs.com/)  
+**Use It:**  [**Getting Started**](../gettingstarted.md) 
+
 ## Service Discovery
+
+The nature of containerized microservices in an organization has organically led to a new mission critical pair of technologies; SD \(Service Discovery\) and OM \(Orchestration Management\). Service discovery aids in the detection and management of services as the flow of service availability changes over time. NestEgg uses a combination of  SD and OM technologies to manage the flow of services in the organization.
+
+**Core Technology :** [**Traefik**](https://traefik.io/) **/** [**Docker**](http://www.docker.com)   
+**Learn it:**  [**Tutorials**](https://docs.traefik.io/)  
+**Use It:**  [**Getting Started**](../gettingstarted.md) 
 
 ## Continuous Delivery
 
