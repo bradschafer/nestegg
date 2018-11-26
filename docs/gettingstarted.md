@@ -1,12 +1,14 @@
 ---
-description: Get an entire infrastructure running up in minutes
+description: Get an entire infrastructure up and running in minutes
 ---
 
 # Getting Started
 
 ![](.gitbook/assets/gettingstarted-client%20%281%29.png)
 
- Nest Egg is a Docker centric curated platform for modern micro-service based organizations. It is a fairly large set of technologies. As such we've tried to make getting started with a working example as simple as possible.
+Nest Egg is a Docker centric curated platform for modern micro-service based organizations. 
+
+It is a fairly large set of technologies. As such we've tried to make getting started with a working example as simple as possible.
 
 ## Prerequisites
 
