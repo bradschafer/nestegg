@@ -24,9 +24,9 @@ git clone https://github.com/bradschafer/nestegg .
 bash setup.sh
 ```
 
-The setup bash script will add some folders and setup the Docker networks that NestEgg needs in order for the containers to talk to each other. The folders will store and 'share' data from your computer to the running Docker services, creating a development environment 'persistance' layer. You can edit files right from your favorite IDE and the web application will refresh on file change automatically. For transition to production environment see the 'Moving to Production' section of the documentation.
+The setup bash script will add some folders and setup the Docker networks that NestEgg needs in order for the containers to talk to each other. The folders will store and 'share' data from your computer to the running Docker services, creating a development environment 'persistence' layer. You can edit files right from your favorite IDE and the web application will refresh on file change automatically. 
 
-### Launch devops infratructure
+### Launch devops infrastructure
 
 ```text
 cd devops
@@ -39,7 +39,7 @@ The -d parameter will run these containers detached form the console in the back
 
 ![](.gitbook/assets/compose-devops.png)
 
-### Launch the development services / website
+### Launch the development services 
 
 Open a second tab or terminal window so you can see the console logs for the development server.
 
@@ -53,7 +53,7 @@ You should then see something like this:
 
 ![](.gitbook/assets/compose-develop.png)
 
-If you start the development server prior to the MongoDB starting up, you will see an error. It is no big deal, as starting and stopping containers will be a breeze with the 'Portainer' management console which we will cover a bit below.
+If you start the development server prior to the MongoDB starting up, you will see an error. It is no big deal, as starting and stopping containers will be a breeze with the '[Portainer](http://portainer.io)' management console which we will cover a bit below.
 
 If you get an error, for now simply press **ctl-c** wait for the containers to shut down, wait a few moments for the MongoDB to completely start then run the 'docker-compose up' command again. 
 
