@@ -55,7 +55,7 @@ You should then see something like this:
 
 ![](.gitbook/assets/compose-develop.png)
 
-If you start the development server prior to the MongoDB starting up, you will see an error. It is no big deal, as starting and stopping containers will be a breeze with the '[Portainer](http://portainer.io)' management console which we will cover a bit below.
+If you start the development server prior to the MongoDB starting up, you will see an error. It is no big deal, as starting and stopping containers will be a breeze with the '[Portainer](http://portainer.io)' management console which we will cover later \( [see what just happened](what-just-happened.md) / [orchestration management](key-technologies/orchestration-management.md) \).
 
 If you get an error, for now simply press **ctl-c** wait for the containers to shut down, wait a few moments for the MongoDB to completely start then run the 'docker-compose up' command again. 
 
@@ -65,5 +65,5 @@ With all the services started you should now be able to open a browser and goto 
 http://clientdev.localhost/
 ```
 
-
+Feel free at this point to explore the new website, create an account etc.. Then when you're ready, we will take a look at [what just happened](what-just-happened.md) to get a brief overview of all the great tools at your command.
 
