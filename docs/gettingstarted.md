@@ -1,5 +1,7 @@
 ---
-description: Get an entire organization infrastructure up and running in minutes
+description: >-
+  "Get an entire organization infrastructure up and running in minutes"   <--
+  Ok, here's how.
 ---
 
 # Getting Started
