@@ -8,7 +8,7 @@ The de-facto technology of the modern infrastructure. "Manage cattle not pets" i
 **Learn it:**  [**Udemy - Docker Mastery**](https://www.udemy.com/docker-mastery/)  
 **Use It:**  [**Getting Started**](../gettingstarted.md)\*\*\*\*
 
-## Persistance
+## Persistence
 
 Persistence of data is the lifeblood of the modern business -- as a by product it's also how the data is stored, retrieved, re-shaped, and made 'available' in world where the services accessing 'data' change on a moments notice and scale up, down and sideways \( around the world \) continually.  
   
