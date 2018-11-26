@@ -24,7 +24,7 @@ You might recognize a few, you might not know all of them and you might prefer a
 
 Swap out a part for another, mix and match other leading solutions or introduce a better solution to the community. 
 
-Most important, contribute any way you can. 
+Most importantly, contribute any way you can. 
 
 If you are knowledgeable in any of the technologies in use by the Nest Egg project join our Slack channel and help out. 
 
