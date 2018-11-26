@@ -24,9 +24,9 @@ You might recognize a few, you might not know all of them and you might prefer a
 
 Swap out a part for another, mix and match other leading solutions or introduce a better solution to the community. 
 
-Most importantly, contribute any way you can. Become part of the community of the NestEgg technology projects that interest you, or relate to your job. 
+Most importantly, contribute any way you can. Become part of the community of one \(or more\) of the NestEgg key technology projects that interest you.
 
-If you are knowledgeable in any of the technologies in use by the Nest Egg project join our Slack channel and help out. 
+If you are knowledgeable in any of the key technologies used in the Nest Egg project please join our Slack channel and help out. 
 
 I am confident when you need help on another piece of the puzzle the community will be there to reciprocate.
 
