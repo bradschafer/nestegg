@@ -6,7 +6,7 @@ description: What is Nest Egg and why was it created?
 
 On boarding contributors in most organizations is **hard**. 
 
-Getting contributors to the point their work moves seamlessly into to production is even harder. 
+Getting contributors to the point their work moves seamlessly into production is even harder. 
 
 Licensing commercial solutions can be very expensive for startups and even more so for growing businesses or enterprises.
 
