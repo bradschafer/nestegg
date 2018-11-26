@@ -10,7 +10,7 @@ Getting contributors to the point their work moves seamlessly into production is
 
 Licensing commercial solutions can be very expensive for startups and even more so for growing businesses or enterprises.
 
-Open source software has less obvious costs of 'choosing' and then training, support and maintenance that can lead to concerns for directors and  C-level personnel .
+Open source software has less obvious costs of 'choosing' and then training, supporting, maintaining and upgrading that can lead to concerns for directors and  C-level personnel .
 
 Nest Egg is an attempt to suggest a **base set of technologies** that are open source; that are well supported and that are easily integrated into organizations while also being very scalable. 
 
