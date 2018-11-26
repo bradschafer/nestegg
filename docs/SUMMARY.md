@@ -2,6 +2,7 @@
 
 * [Why Nest Egg](README.md)
 * [Getting Started](gettingstarted.md)
+* [What Just Happened?](what-just-happened.md)
 
 ## Key Technologies
 
