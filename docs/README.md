@@ -16,7 +16,7 @@ Nest Egg is an attempt to suggest a **base set of technologies** that are open s
 
 It is our hope that by showcasing a small set of open source technologies that work well together  designers, developers, architects and stakeholders can focus intensely on this group of core building blocks.
 
-This handful of key architectures/patterns accommodate a wide range of business needs. They represent  large international pools of talent and fit nicely into startups, mid-tier or even enterprises that are looking to migrate critical business processes into industry leading architectural patterns.
+This handful of key architectures/patterns accommodate a wide range of business needs. Based in part by the values of the [twelve factor app](https://12factor.net/)  - they represent  large international pools of talent and fit nicely into startups, mid-tier or even enterprises that are looking to migrate critical business processes into industry leading architectural patterns.
 
 Take a quick look at the [**key technologies**](key-technologies/overview.md) in Nest Egg. 
 
