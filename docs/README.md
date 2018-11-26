@@ -1,5 +1,5 @@
 ---
-description: What is Nest Egg and why was it created?
+description: Get an entire organization infrastructure up and running in minutes
 ---
 
 # Why Nest Egg
