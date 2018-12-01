@@ -7,7 +7,9 @@ description: >-
 
 # What Just Happened?
 
-At this point we can begin to use some of the running services to do administration. Here are the main URL's you will be using:
+At this point we can begin to use some of the running services to do administration, and see our new [Web Application](what-just-happened.md#web-application)
+
+Here are the main URL's you will be using:
 
 ## DevOps Services
 
