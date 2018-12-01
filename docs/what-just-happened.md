@@ -35,11 +35,11 @@ Traefik is a modern HTTP reverse proxy and load balancer that makes deploying mi
 
 **development url:**  [http://rabbitmq.localhost/\#/](http://rabbitmq.localhost/#/)
 
-
+## The ELK Stack
 
 ### Kibana
 
-[Kibana](https://www.elastic.co/products/kibana) lets you visualize your Elasticsearch data and navigate the Elastic Stack. Kibana provides data exploration, visualization, and dashboarding. 
+[Kibana](https://www.elastic.co/products/kibana) lets you visualize your Elasticsearch data and navigate the ELK Stack. Kibana provides data exploration, visualization, and dashboarding. 
 
 **development url:** [http://kibana.localhost](http://kibana.localhost)
 
