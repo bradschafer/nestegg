@@ -68,3 +68,11 @@ Web applications are the most widely used method to deliver digital services. As
 **Learn it:**  [**The Complete Guide \( Angular 7 \)**](https://www.udemy.com/the-complete-guide-to-angular-2/)   
 **Use It:**  [**Getting Started**](../gettingstarted.md) 
 
+## Schemas & Actions
+
+Effective communication requires an exchange in understanding. Language, syntax, protocols and tools can make communication between organizations hard. There is no universal standard for how data should be organized and stored. However, there are some really [**well thought out guidelines**](https://schema.org/) that have been established by industry leaders. We try to create [data schemas](https://schema.org/docs/full.html) that follow these guideline with the hope that by adhering to them we might build systems and organizations that can effectively communicate with each other. Using common definitions for the types of [actions](https://schema.org/Action) that can be performed will lead organizations to better understand themselves and interactions with others.
+
+**Core Technology :**  [**https://schema.org/**](https://schema.org/)**,** [**https://json-schema.org/**](https://json-schema.org/)  
+**Learn it:**    
+**Use It:**  
+
