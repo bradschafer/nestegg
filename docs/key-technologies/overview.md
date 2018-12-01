@@ -62,3 +62,9 @@ Closely tied to SD \( Service Discovery \) is OM \( Orchestration Management \).
 
 ## Web Applications
 
+Web applications are the most widely used method to deliver digital services. As such there is an abundance of technologies to choose from. The NestEgg starter comes with Angular applications by default. We could have just as easily chosen React or Vue, but the coding style of development between Angular and NestJs fit so well together it became the logical choice. Choosing a component library \( [PrimeFaces](https://www.primefaces.org/) \) was perhaps a bit easier, especially since the library has great components as well as support for [Angular](https://www.primefaces.org/primeng/#/) and [React](https://www.primefaces.org/primereact/#/). That makes learning a single component library applicable to a wide range of potential solutions. 
+
+**Core Technology :**  [**NestJS**](https://docs.nestjs.com/)**,** [**Angular**](https://angular.io/)**,** [**PrimeNG**](https://www.primefaces.org/primeng/)  
+**Learn it:**  [**The Complete Guide \( Angular 7 \)**](https://www.udemy.com/the-complete-guide-to-angular-2/)   
+**Use It:**  [**Getting Started**](../gettingstarted.md) 
+
