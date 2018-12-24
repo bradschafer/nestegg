@@ -17,7 +17,7 @@ services:
 
   api:
     build: #location and filename for this api build
-      context: ./api
+      context: ./apps/api-server
       dockerfile: dockerfile 
       args:
           - NODE_ENV=development
@@ -25,15 +25,15 @@ services:
     command: ../node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/www
     volumes:
       # - ./api:/opt/app:delegated
-      - ./api:/opt/app
+      - ./apps/api-server:/opt/app
       
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
       # be saved on host for next build
       # docker-compose exec api npm install --save bower
-      - ./api/package.json:/opt/package.json
-      # - ./api/package-lock.json:/opt/package-lock.json
+      - ./apps/api-server/package.json:/opt/package.json
+      # - ./apps/api-server/package-lock.json:/opt/package-lock.json
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
       # in case you want to use node/npm both outside container for test/lint etc. and also inside container
       # this will overwrite the default node_modules dir in container so it won't conflict with our
@@ -82,7 +82,7 @@ services:
        - "4000:4200"
        - "9876:9876"
        - "9229:9229"
-       - "49153:49153"
+    #   - "49153:49153"
     volumes:
       - ./apps/root-webapp:/opt/app:delegated
       # bind-mounting these two files in will let you add packages during development without rebuilding

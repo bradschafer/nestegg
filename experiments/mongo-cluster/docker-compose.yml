@@ -1,0 +1,105 @@
+version: '3.6'
+
+# https://medium.com/@albertorojasm95/mongodb-replicaset-with-docker-swarm-8461ecd904b0
+# https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/
+# https://docs.docker.com/engine/swarm/secrets/
+
+
+networks:
+   mongo:
+    external: true
+
+secrets:
+    MONGO_DB_KEYFILE:
+    #    external: true
+        file: ./security.keyfile    
+    cert.pem:
+    #    external: true
+        file: ./cert.pem    
+  
+services:
+    mongo1:
+        image: mongo:4.0.0
+        command: mongod --replSet rs0 --port 27017 # --keyFile /run/secrets/MONGO_DB_KEYFILE  --sslMode requireSSL --sslPEMKeyPassword certPass --sslPEMKeyFile /run/secrets/cert.pem 
+        ports:
+            - 7011:27017
+        volumes:
+            - ./../../data/devops/mongocluster/db:/data/db
+            # - /etc/localtime:/etc/localtime:ro
+        deploy:
+            replicas: 1
+            # placement:
+            # constraints:
+            #    - node.labels.mongo.replica == 1
+        # networks:
+        #    - mongo
+        secrets:
+            - MONGO_DB_KEYFILE
+            # uid: '999'
+            # gid: '999'
+            # mode: 0600
+            - cert.pem
+
+    # mongo2:
+    #     image: mongo:4.0.0
+    #     command: mongod --replSet replicaTest --port 7012 --sslMode requireSSL --sslPEMKeyPassword certPass --sslPEMKeyFile /run/secrets/cert.pem --keyFile /run/secrets/MONGO_DB_KEYFILE
+    #     ports:
+    #         - 7012:7012
+    #     volumes:
+    #         - ./../../data/devops/mongocluster/db:/data/db
+    #      #   - /etc/localtime:/etc/localtime:ro
+    #     deploy:
+    #         replicas: 1
+    #         # placement:
+    #         # constraints:
+    #         #    - node.labels.mongo.replica == 1
+    #     networks:
+    #         - mongo
+    #     secrets:
+    #         - MONGO_DB_KEYFILE
+    #           #  uid: '999'
+    #           #  gid: '999'
+    #           #  mode: 0600
+    #         - cert.pem
+    # mongo3:
+    #     image: mongo:4.0.0
+    #     command: mongod --replSet replicaTest --port 7013 --sslMode requireSSL --sslPEMKeyPassword certPass --sslPEMKeyFile /run/secrets/cert.pem --keyFile /run/secrets/MONGO_DB_KEYFILE
+    #     ports:
+    #         - 7013:7013
+    #     volumes:
+    #         - ./../../data/devops/mongocluster/db:/data/db
+    #     #    - /etc/localtime:/etc/localtime:ro
+    #     deploy:
+    #         replicas: 1
+    #         # placement:
+    #         # constraints:
+    #         #    - node.labels.mongo.replica == 1
+    #     networks:
+    #         - mongo
+    #     secrets:
+    #         - MONGO_DB_KEYFILE
+    #            # uid: '999'
+    #            # gid: '999'
+    #            # mode: 0600
+    #         - cert.pem
+    # mongo4:
+    #     image: mongo:4.0.0
+    #     command: mongod --replSet replicaTest --port 7014 --sslMode requireSSL --sslPEMKeyPassword certPass --sslPEMKeyFile /run/secrets/cert.pem --keyFile /run/secrets/MONGO_DB_KEYFILE
+    #     ports:
+    #         - 7014:7014
+    #     volumes:
+    #         - ./../../data/devops/mongocluster/db:/data/db
+    #      #   - /etc/localtime:/etc/localtime:ro
+    #     deploy:
+    #         replicas: 1
+    #         # placement:
+    #         # constraints:
+    #         #    - node.labels.mongo.replica == 1
+    #     networks:
+    #         - mongo
+    #     secrets:
+    #         - MONGO_DB_KEYFILE
+    #           #  uid: '999'
+    #           #  gid: '999'
+    #           #  mode: 0600
+    #         - cert.pem
