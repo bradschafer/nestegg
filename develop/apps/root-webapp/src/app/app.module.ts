@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -15,6 +15,9 @@ import { SocketService } from './_services/socket.service';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
+
+// error capture service
+import { SentryErrorHandler } from './_providers/sentryErrorHandler.provider';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -41,7 +44,7 @@ const config: SocketIoConfig = { url: 'http://api.localhost', options: {} };
     // global primeng components
     ButtonModule,
     PublicModule,
-    SocketIoModule.forRoot(config)
+   // SocketIoModule.forRoot(config)
   ],
   declarations: [
     AppComponent
@@ -49,6 +52,7 @@ const config: SocketIoConfig = { url: 'http://api.localhost', options: {} };
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: SentryErrorHandler },
     SocketService
     // provider used to create fake backend
     // fakeBackendProvider

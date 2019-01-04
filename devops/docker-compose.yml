@@ -25,12 +25,12 @@ services:
     # container_name: traefik
     networks:
       - web
-    depends_on:
-      - portaineragent
-      - elasticsearch
-      - kibana
-      - mqnode1
-      - portainerweb
+    # depends_on:
+    #   - portaineragent
+    #   - elasticsearch
+    #   - kibana
+    #   - mqnode1
+    #   - portainerweb
     volumes:
       - ./traefik/acme.json:/etc/traefik/acme/acme.json
       # - ./traefik.toml:/traefik.toml
@@ -60,7 +60,7 @@ services:
       - --acme.entrypoint=https
       - --entryPoints=Name:https Address::443 TLS
       - --entryPoints=Name:http Address::80
-      - --acme.storage=/etc/traefik/acme/acme.json
+      - --acme.storage=etc/traefik/acme/acme.json
       - --acme.acmelogging
       - --acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # - --acme.caserver=https://acme-v02.api.letsencrypt.org/directory
@@ -119,126 +119,126 @@ services:
       AGENT_CLUSTER_ADDR: tasks.agent
     logging: *my-logging
 
-  elasticsearch:
-    build:
-      context: docker-elk/elasticsearch/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    volumes:
-      - ./docker-elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - ./../data/devops/elasticsearch/data:/usr/share/elasticsearch/data
-    labels: 
-      - traefik.port=9200
-      - traefik.docker.network=web
-      - traefik.frontend.rule=Host:elasticsearch.localhost  
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-    networks:
-      - elk
-      - web
-    logging: *my-logging
+  # elasticsearch:
+  #   build:
+  #     context: docker-elk/elasticsearch/
+  #     args:
+  #       ELK_VERSION: $ELK_VERSION
+  #   volumes:
+  #     - ./docker-elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+  #     - ./../data/devops/elasticsearch/data:/usr/share/elasticsearch/data
+  #   labels: 
+  #     - traefik.port=9200
+  #     - traefik.docker.network=web
+  #     - traefik.frontend.rule=Host:elasticsearch.localhost  
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   environment:
+  #     ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+  #   networks:
+  #     - elk
+  #     - web
+  #   logging: *my-logging
   
-  logstash:
-    build:
-      context: docker-elk/logstash/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    volumes:
-      - ./docker-elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./docker-elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
-    labels: 
-      - traefik.port=9600
-      - traefik.docker.network=web
-      - traefik.frontend.rule=Host:logstash.localhost  
-    ports:
-      - "5000:5000"
-      - "9600:9600"
-    environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    networks:
-      - elk
-      - web
-    depends_on:
-      - elasticsearch
-    logging: *my-logging
+  # logstash:
+  #   build:
+  #     context: docker-elk/logstash/
+  #     args:
+  #       ELK_VERSION: $ELK_VERSION
+  #   volumes:
+  #     - ./docker-elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+  #     - ./docker-elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+  #   labels: 
+  #     - traefik.port=9600
+  #     - traefik.docker.network=web
+  #     - traefik.frontend.rule=Host:logstash.localhost  
+  #   ports:
+  #     - "5000:5000"
+  #     - "9600:9600"
+  #   environment:
+  #     LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+  #   networks:
+  #     - elk
+  #     - web
+  #   depends_on:
+  #     - elasticsearch
+  #   logging: *my-logging
 
-  kibana:
-    build:
-      context: docker-elk/kibana/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    volumes:
-      - ./docker-elk/kibana/config/:/usr/share/kibana/config:ro
-    labels: 
-      - traefik.port=5601
-      - traefik.docker.network=web
-      - traefik.frontend.rule=Host:kibana.localhost  
-    ports:
-      - "5601:5601"
-    networks:
-      - elk
-      - web
-    depends_on:
-      - elasticsearch
-    logging: *my-logging
+  # kibana:
+  #   build:
+  #     context: docker-elk/kibana/
+  #     args:
+  #       ELK_VERSION: $ELK_VERSION
+  #   volumes:
+  #     - ./docker-elk/kibana/config/:/usr/share/kibana/config:ro
+  #   labels: 
+  #     - traefik.port=5601
+  #     - traefik.docker.network=web
+  #     - traefik.frontend.rule=Host:kibana.localhost  
+  #   ports:
+  #     - "5601:5601"
+  #   networks:
+  #     - elk
+  #     - web
+  #   depends_on:
+  #     - elasticsearch
+  #   logging: *my-logging
 
-  mqnode1:
-      image: rabbitmq:3-management
-      hostname: mqnode1
-      environment:
-        RABBITMQ_ERLANG_COOKIE: "secret string"
-        RABBITMQ_NODENAME: mqnode1
-      networks:
-        - rabbitmq
-        - web    
-      volumes:
-        - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
-        - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
-      labels:
-        - traefik.frontend.rule=Host:rabbitmq.localhost
-        - traefik.docker.network=web
-        - traefik.port=15672
-      logging: *my-logging  
-      # ports:
-      #   - "4369:4369"
-      #   - "5671:5671"
-      #   - "5672:5672"
-      #   - "15671:15671"
-      #   - "15672:15672"
-      #   - "25672:25672"
+  # mqnode1:
+  #     image: rabbitmq:3-management
+  #     hostname: mqnode1
+  #     environment:
+  #       RABBITMQ_ERLANG_COOKIE: "secret string"
+  #       RABBITMQ_NODENAME: mqnode1
+  #     networks:
+  #       - rabbitmq
+  #       - web    
+  #     volumes:
+  #       - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+  #       - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
+  #     labels:
+  #       - traefik.frontend.rule=Host:rabbitmq.localhost
+  #       - traefik.docker.network=web
+  #       - traefik.port=15672
+  #     logging: *my-logging  
+  #     # ports:
+  #     #   - "4369:4369"
+  #     #   - "5671:5671"
+  #     #   - "5672:5672"
+  #     #   - "15671:15671"
+  #     #   - "15672:15672"
+  #     #   - "25672:25672"
 
-  mqnode2:
-    image: rabbitmq:3-management
-    hostname: mqnode2
-    depends_on:
-      - mqnode1
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "secret string"
-      RABBITMQ_NODENAME: mqnode2
-    networks:
-      - rabbitmq    
-    volumes:
-      - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
-      - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
-    logging: *my-logging
+  # mqnode2:
+  #   image: rabbitmq:3-management
+  #   hostname: mqnode2
+  #   depends_on:
+  #     - mqnode1
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: "secret string"
+  #     RABBITMQ_NODENAME: mqnode2
+  #   networks:
+  #     - rabbitmq    
+  #   volumes:
+  #     - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+  #     - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
+  #   logging: *my-logging
 
-  mqnode3:
-    image: rabbitmq:3-management
-    hostname: mqnode3
-    depends_on:
-      - mqnode1
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "secret string"
-      RABBITMQ_NODENAME: mqnode3
-    networks:
-      - rabbitmq    
-    volumes:
-      - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
-      - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
-    logging: *my-logging
+  # mqnode3:
+  #   image: rabbitmq:3-management
+  #   hostname: mqnode3
+  #   depends_on:
+  #     - mqnode1
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: "secret string"
+  #     RABBITMQ_NODENAME: mqnode3
+  #   networks:
+  #     - rabbitmq    
+  #   volumes:
+  #     - "./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config"
+  #     - "./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json"
+  #   logging: *my-logging
 
   mongodb:
     image: mongo:4.0
@@ -248,6 +248,8 @@ services:
     environment:
     - MONGO_DATA_DIR=/data/db
     - MONGO_LOG_DIR=/dev/null
+    # - MONGO_INITDB_ROOT_USERNAME=prisma
+    # - MONGO_INITDB_ROOT_PASSWORD=prisma
     volumes:
     - ./../data/devops/mongodb/db:/data/db
     healthcheck:
@@ -260,3 +262,26 @@ services:
     ports:
       - 27017:27017
     logging: *my-logging 
+
+  prisma:
+    image: prismagraphql/prisma:1.23
+    # restart: always
+    ports:
+    - "4466:4466"
+    depends_on:
+    - mongodb
+    networks:
+      - mongo
+      - web
+    labels:
+        - traefik.frontend.rule=Host:prisma.localhost
+        - traefik.docker.network=web
+        - traefik.port=4466
+    logging: *my-logging      
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        databases:
+          default:
+            connector: mongo
+            uri: mongodb://mongodb

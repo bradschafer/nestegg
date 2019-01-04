@@ -7,8 +7,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config=proxy.conf.json --host 0.0.0.0 --public-host --disable-host-check --port 4200",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
     "test": "ng test",
+    "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -27,14 +28,13 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^3.2.2",
-    "ag-grid-angular": "^19.0.0",
-    "ag-grid-community": "^19.0.0",
+    "@sentry/browser": "^4.4.2",
     "angular2-cookie-law": "^6.0.4",
-    "angular6-json-schema-form": "^1.0.4",
+    "angular6-json-schema-form": "^7.0.1",
     "core-js": "^2.5.4",
     "ng6-socket-io": "^1.0.3",
-    "primeicons": "^1.0.0-beta.10",
-    "primeng": "^6.1.4",
+    "primeicons": "^1.0.0",
+    "primeng": "^6.1.7",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },
@@ -61,6 +61,6 @@
     "tsickle": ">=0.29.0",
     "tslib": "^1.9.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.7.2"
+    "typescript": "~2.9.2"
   }
 }

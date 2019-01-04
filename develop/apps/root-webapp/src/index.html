@@ -25,7 +25,33 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
+    
+    <!-- Sentry JS SDK 2.1.+ required -->
+    <script src="https://cdn.ravenjs.com/2.1.0/raven.min.js"></script>
+
+    <script>
+      // Capture feedback on user facing issues if wanted.
+      // configure the SDK as you normally would
+      // Raven.config('https://ad9dcbdd72b04df086d9abf4dcf7c93e@sentry.io/1360517').install();
+
+      /**
+       * Report a routing error to Sentry and show a feedback dialog to
+       * the user.
+       **/ 
+      
+      // try {
+      //     renderRoute()
+      //   } catch (err) {
+      //     handleRouteError(err);
+      //   }
+      
+      // function handleRouteError(err) {
+      //   Raven.captureException(err);
+      //   Raven.showReportDialog();
+      // };
+    </script>
 </head>
+
 <body>
   <app-root></app-root>
 </body>

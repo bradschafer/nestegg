@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     // this.cars = this.http.get('https://api.myjson.com/bins/15psn9');
-    
+
     this.cars = [
       { 'brand': 'VW', 'year': 2012, 'color': 'Orange', 'vin': 'dsad231ff' },
       { 'brand': 'Audi', 'year': 2011, 'color': 'Black', 'vin': 'gwregre345' },
@@ -107,11 +107,12 @@ export class UsersComponent implements OnInit {
   }
 
   save() {
-    let cars = [...this.cars];
-    if (this.newCar)
+    const cars = [...this.cars];
+    if (this.newCar) {
       cars.push(this.car);
-    else
+    } else {
       cars[this.cars.indexOf(this.selectedCar)] = this.car;
+    }
 
     this.cars = cars;
     this.car = null;
@@ -119,7 +120,7 @@ export class UsersComponent implements OnInit {
   }
 
   delete() {
-    let index = this.cars.indexOf(this.selectedCar);
+    const index = this.cars.indexOf(this.selectedCar);
     this.cars = this.cars.filter((val, i) => i !== index);
     this.car = null;
     this.displayDialog = false;
@@ -133,8 +134,9 @@ export class UsersComponent implements OnInit {
   }
 
   cloneCar(c: any): any {
-    let car = {};
-    for (let prop in c) {
+    const car = {};
+    // tslint:disable-next-line:forin
+    for (const prop in c) {
       car[prop] = c[prop];
     }
     return car;

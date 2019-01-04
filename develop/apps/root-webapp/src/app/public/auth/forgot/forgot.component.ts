@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotComponent implements OnInit {
 
+  test;
+
   form = {
     schema: {
         type: 'object',

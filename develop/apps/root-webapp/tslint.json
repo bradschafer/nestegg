@@ -2,6 +2,10 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
+  "exclude": [
+    "node_modules",
+    "*.*spec.*"
+],
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,
@@ -54,7 +58,9 @@
       "trace"
     ],
     "no-construct": true,
-    "no-debugger": true,
+    "no-debugger": {
+      "severity": "warn"
+    },
     "no-duplicate-super": true,
     "no-empty": false,
     "no-empty-interface": true,

@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "nestjs-bff-api",
+  "name": "nestegg-api",
   "version": "0.1.0",
-  "description": "A Nestjs Backend-For-Frontend with CLI",
-  "author": "ahrnee",
+  "description": "A Nestjs API server for NestEgg",
+  "author": "bradschafer",
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
@@ -12,6 +12,7 @@
     "prestart:prod": "rm -rf dist && tsc",
     "start:prod": "node dist/main.js",
     "start:hmr": "node dist/server",
+    "lint": "ng lint",
     "test": "jest --config=jest.json --watch",
     "test:cov": "jest --coverage",
     "e2e": "jest --config ./e2e/jest-e2e.json  --detectOpenHandles",
@@ -40,7 +41,7 @@
     "pretty-error": "^2.1.1",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",
-    "typescript": "^2.6.2",
+    "typescript": "^2.9.2",
     "winston": "^2.4.2",
     "winston-daily-rotate-file": "^3.2.1"
   },
