@@ -36,6 +36,7 @@ ci_build_client(){
     # Get tags and hash
     get_build_env
     cd develop/apps/root-webapp
+    npm install
     # Ensure code quality and tested
     npm run lint
     npm run test-headless
