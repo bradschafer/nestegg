@@ -42,7 +42,7 @@ ci_build_client(){
     npm run test-headless
     npm run e2e
     # Do the build
-    npm run build    
+    npm run build-prod    
 }
 
 $@

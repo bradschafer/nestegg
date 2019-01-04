@@ -7,7 +7,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config=proxy.conf.json --host 0.0.0.0 --public-host --disable-host-check --port 4200",
-    "build": "ng build --prod --aot",
+    "build-prod": "ng build --prod --aot",
+    "build-qa": "ng build --target=production --environment=qa",
+    "build-dev": "ng build --target=development --environment=dev",
     "test": "ng test",
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
